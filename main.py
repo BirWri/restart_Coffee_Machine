@@ -10,7 +10,7 @@ if user_choice == "report":
     print(f"Water: {resources['water']}ml\n"
           f"Milk: {resources['milk']}ml\n"
           f"Milk: {resources['coffee']}ml\n"
-          f"Money: $")
+          f"Money: ${resources['money']}")
 
 
 
