@@ -19,6 +19,16 @@ def check_resources(drink, menu, resources):
 
     return resource_available
 
+def calculate_payment(quarters, dimes, nickles, pennies):
+    q = quarters*0.25
+    d = dimes*0.10
+    n = nickles*0.05
+    p = pennies*0.01
+    x = q + d + n + p
+    print(x)
+    return x
+
+
 machine_on = True
 while machine_on:
     # Ask the user what they would like
@@ -40,12 +50,33 @@ while machine_on:
 
         # Check if there are enough resources
         # Make a function that takes user_choice, menu and resources, as an input
-        resources_quantity = check_resources(drink=user_choice, menu = MENU, resources=resources)
+        resources_quantity = check_resources(drink=user_choice, menu=MENU, resources=resources)
 
-        if resources_quantity == False:
+        if not resources_quantity:
             machine_on = False
         else:
-            # Ask coins
+            print("Please insert coins:")
+            quarters = float(input("How many quarters?: "))
+            dimes = float(input("How many dimes?: "))
+            nickles = float(input("How many nickels?: "))
+            pennies = float(input("How many pennies?: "))
+
+            # Calculate the money input
+            payment = calculate_payment(quarters, dimes, nickles, pennies)
+
+            if payment >= MENU[user_choice]['cost']:
+                #Make coffee
+                #Deduct from resources
+                #Add money to the bank
+                #Calculate money back
+                print(f"Here is your {user_choice}")
+            else:
+                print("“Sorry that's not enough money. Money refunded.")
+
+
+
+
+
 
 
 
