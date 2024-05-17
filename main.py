@@ -28,6 +28,11 @@ def calculate_payment(quarters, dimes, nickles, pennies):
     print(x)
     return x
 
+def deduct_from_resources(drink, menu, resources):
+    resources['water'] = resources['water'] - menu[drink]['ingredients']['water']
+    resources['coffee'] = resources['coffee'] - menu[drink]['ingredients']['coffee']
+    if menu[drink]['ingredients']['milk']:
+        resources['milk'] = resources['milk'] - menu[drink]['ingredients']['milk']
 
 machine_on = True
 while machine_on:
@@ -35,18 +40,20 @@ while machine_on:
     user_choice = input("What would you like? (espresso/latte/cappuccino): ").lower()
     print(user_choice)
 
+    #Add error handling for input here
+
     # Turn coffee machine off
     if user_choice == "off":
         machine_on = False
         print("Machined switched off")
-    else:
 
-        # User can print report of the resources
-        if user_choice == "report":
+    elif user_choice == "report":
+            # User can print report of the resources / MAKE IT INTO A FUNCTION
             print(f"Water: {resources['water']}ml\n"
                   f"Milk: {resources['milk']}ml\n"
                   f"Milk: {resources['coffee']}ml\n"
                   f"Money: ${resources['money']}")
+    else:
 
         # Check if there are enough resources
         # Make a function that takes user_choice, menu and resources, as an input
@@ -61,14 +68,20 @@ while machine_on:
             nickles = float(input("How many nickels?: "))
             pennies = float(input("How many pennies?: "))
 
+            # Add error handling for input here
+
             # Calculate the money input
             payment = calculate_payment(quarters, dimes, nickles, pennies)
 
             if payment >= MENU[user_choice]['cost']:
                 #Make coffee
-                #Deduct from resources
+                deduct_from_resources(drink=user_choice, menu=MENU, resources=resources)
                 #Add money to the bank
+
                 #Calculate money back
+                if payment > MENU[user_choice]['cost']:
+                    money_back = payment - MENU[user_choice]['cost']
+                    print(f"Here is your money back {money_back}")
                 print(f"Here is your {user_choice}")
             else:
                 print("“Sorry that's not enough money. Money refunded.")
