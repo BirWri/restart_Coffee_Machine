@@ -1,7 +1,8 @@
 name: Push command
 on: push
 jobs:
-  runs-on: windows-latest
-  steps:
-    - name: Write a message
-      run: echo "Testing yaya"
+  pushing:
+    runs-on: windows-latest
+    steps:
+      - name: Write a message
+        run: echo "Testing yaya"
