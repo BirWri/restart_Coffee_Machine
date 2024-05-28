@@ -3,7 +3,7 @@ from resources import resources
 
 
 def check_resources(drink, menu, resources):
-
+#refractor the code to not depend on kewords... as milk is missing in one drink and is causing an error
     resource_available = True
     if (menu[drink]['ingredients']['water']) > resources['water']:
         print("Sorry there is not enough water.")
@@ -13,11 +13,13 @@ def check_resources(drink, menu, resources):
         print("Sorry there is not enough coffee.")
         resource_available = False
 
-    if (menu[drink]['ingredients']['milk']) > resources['milk']:
-        print("Sorry there is not enough milk.")
-        resource_available = False
-
-    return resource_available
+    if not menu[drink]['ingredients']['milk']:
+        return resource_available
+    else:
+        if (menu[drink]['ingredients']['milk']) > resources['milk']:
+            print("Sorry there is not enough milk.")
+            resource_available = False
+            return resource_available
 
 def calculate_payment(quarters, dimes, nickles, pennies):
     q = quarters*0.25
@@ -40,19 +42,24 @@ while machine_on:
     user_choice = input("What would you like? (espresso/latte/cappuccino): ").lower()
     print(user_choice)
 
-    #Add error handling for input here
-
     # Turn coffee machine off
     if user_choice == "off":
         machine_on = False
         print("Machined switched off")
 
     elif user_choice == "report":
-            # User can print report of the resources / MAKE IT INTO A FUNCTION
-            print(f"Water: {resources['water']}ml\n"
-                  f"Milk: {resources['milk']}ml\n"
-                  f"Milk: {resources['coffee']}ml\n"
-                  f"Money: ${resources['money']}")
+        # User can print report of the resources / MAKE IT INTO A FUNCTION
+        print(f"Water: {resources['water']}ml\n"
+                f"Milk: {resources['milk']}ml\n"
+                f"Milk: {resources['coffee']}ml\n"
+                f"Money: ${resources['money']}")
+
+    elif not user_choice:
+        print("Input missing.")
+
+    elif user_choice != "latte" and user_choice != "espresso" and user_choice != "cappuccino":
+        print("Drinks doesnt exist")
+
     else:
 
         # Check if there are enough resources
@@ -81,8 +88,8 @@ while machine_on:
                 #Calculate money back
                 if payment > MENU[user_choice]['cost']:
                     money_back = payment - MENU[user_choice]['cost']
-                    print(f"Here is your money back {money_back}")
-                print(f"Here is your {user_choice}")
+                    print(f"Here is ${money_back} dollars in change.")
+                print(f"Here is your {user_choice}. Enjoy!")
             else:
                 print("“Sorry that's not enough money. Money refunded.")
 
