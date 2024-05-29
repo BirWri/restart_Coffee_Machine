@@ -5,22 +5,11 @@ from resources import resources
 def check_resources(drink, menu, resources):
 #refractor the code to not depend on kewords... as milk is missing in one drink and is causing an error
     resource_available = True
-
-    if (menu[drink]['ingredients']['water']) > resources['water']:
-        print("Sorry there is not enough water.")
-        resource_available = False
-
-    if (menu[drink]['ingredients']['coffee']) > resources['coffee']:
-        print("Sorry there is not enough coffee.")
-        resource_available = False
-
-    if not drink == "espresso":
-        if menu[drink]['ingredients']['milk'] > resources['milk']:
-            print("Sorry there is not enough milk.")
+    for ingredient in menu[drink]['ingredients']:
+        print(ingredient)
+        if menu[drink]['ingredients'][ingredient] > resources[ingredient]:
+            print(f"Sorry there is not enough {ingredient}.")
             resource_available = False
-            return resource_available
-        else:
-            return resource_available
 
     return resource_available
 
