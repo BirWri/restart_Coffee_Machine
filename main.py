@@ -5,6 +5,7 @@ from resources import resources
 def check_resources(drink, menu, resources):
 #refractor the code to not depend on kewords... as milk is missing in one drink and is causing an error
     resource_available = True
+
     if (menu[drink]['ingredients']['water']) > resources['water']:
         print("Sorry there is not enough water.")
         resource_available = False
@@ -13,13 +14,15 @@ def check_resources(drink, menu, resources):
         print("Sorry there is not enough coffee.")
         resource_available = False
 
-    if not menu[drink]['ingredients']['milk']:
-        return resource_available
-    else:
-        if (menu[drink]['ingredients']['milk']) > resources['milk']:
+    if not drink == "espresso":
+        if menu[drink]['ingredients']['milk'] > resources['milk']:
             print("Sorry there is not enough milk.")
             resource_available = False
             return resource_available
+        else:
+            return resource_available
+
+    return resource_available
 
 def calculate_payment(quarters, dimes, nickles, pennies):
     q = quarters*0.25
@@ -33,8 +36,8 @@ def calculate_payment(quarters, dimes, nickles, pennies):
 def deduct_from_resources(drink, menu, resources):
     resources['water'] = resources['water'] - menu[drink]['ingredients']['water']
     resources['coffee'] = resources['coffee'] - menu[drink]['ingredients']['coffee']
-    if menu[drink]['ingredients']['milk']:
-        resources['milk'] = resources['milk'] - menu[drink]['ingredients']['milk']
+    if not drink == "espresso":
+            resources['milk'] = resources['milk'] - menu[drink]['ingredients']['milk']
 
 machine_on = True
 while machine_on:
