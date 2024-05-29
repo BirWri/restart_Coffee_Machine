@@ -3,10 +3,9 @@ from resources import resources
 
 
 def check_resources(drink, menu, resources):
-#refractor the code to not depend on kewords... as milk is missing in one drink and is causing an error
+
     resource_available = True
     for ingredient in menu[drink]['ingredients']:
-        print(ingredient)
         if menu[drink]['ingredients'][ingredient] > resources[ingredient]:
             print(f"Sorry there is not enough {ingredient}.")
             resource_available = False
@@ -22,11 +21,10 @@ def calculate_payment(quarters, dimes, nickles, pennies):
     print(x)
     return x
 
+
 def deduct_from_resources(drink, menu, resources):
-    resources['water'] = resources['water'] - menu[drink]['ingredients']['water']
-    resources['coffee'] = resources['coffee'] - menu[drink]['ingredients']['coffee']
-    if not drink == "espresso":
-            resources['milk'] = resources['milk'] - menu[drink]['ingredients']['milk']
+    for ingredient in menu[drink]['ingredients']:
+        resources[ingredient] = resources[ingredient] - menu[drink]['ingredients'][ingredient]
 
 machine_on = True
 while machine_on:
