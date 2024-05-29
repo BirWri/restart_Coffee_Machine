@@ -1,6 +1,8 @@
 from menu import MENU
 from resources import resources
 
+money = 0
+
 
 def check_resources(drink, menu, resources):
 
@@ -19,7 +21,6 @@ def calculate_payment(quarters, dimes, nickles, pennies):
     n = nickles*0.05
     p = pennies*0.01
     x = q + d + n + p
-    print(x)
     return x
 
 
