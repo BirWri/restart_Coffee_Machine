@@ -12,6 +12,7 @@ def check_resources(drink, menu, resources):
 
     return resource_available
 
+
 def calculate_payment(quarters, dimes, nickles, pennies):
     q = quarters*0.25
     d = dimes*0.10
@@ -24,7 +25,7 @@ def calculate_payment(quarters, dimes, nickles, pennies):
 
 def deduct_from_resources(drink, menu, resources):
     for ingredient in menu[drink]['ingredients']:
-        resources[ingredient] = resources[ingredient] - menu[drink]['ingredients'][ingredient]
+        resources[ingredient] -= menu[drink]['ingredients'][ingredient]
 
 machine_on = True
 while machine_on:
