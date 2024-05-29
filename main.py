@@ -40,10 +40,8 @@ while machine_on:
 
     elif user_choice == "report":
         # User can print report of the resources / MAKE IT INTO A FUNCTION
-        print(f"Water: {resources['water']}ml\n"
-                f"Milk: {resources['milk']}ml\n"
-                f"Milk: {resources['coffee']}ml\n"
-                f"Money: ${resources['money']}")
+        for resource in resources:
+            print(f"{resource.capitalize()}: {resources[resource]}ml")
 
     elif not user_choice:
         print("Input missing.")
